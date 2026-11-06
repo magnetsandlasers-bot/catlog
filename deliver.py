@@ -10,10 +10,10 @@ Checks before anything is copied:
   - every track carries exactly one embedded cover
   - the album cover is within 1280 on the long edge
 
-With --copy it then copies the album into PIPELINE_OUT, which is the
+With --copy it then copies the album into CATLOG_OUT, which is the
 library-shaped output tree. Without --copy it only reports.
 
-If the rendered album is already inside PIPELINE_OUT, it verifies in place and
+If the rendered album is already inside CATLOG_OUT, it verifies in place and
 skips the copy step.
 
 Usage:
@@ -30,11 +30,11 @@ import subprocess
 import sys
 from pathlib import Path
 
-DEST_ROOT = Path(os.environ.get("PIPELINE_OUT",
-                                Path.home() / "pipeline" / "out"))
-MANIFEST_ROOT = Path(os.environ.get("PIPELINE_MANIFESTS",
-                                    Path.home() / "pipeline" / "manifests"))
-LOCAL_OUT = Path(os.environ.get("PIPELINE_LOCAL_OUT", str(DEST_ROOT)))
+DEST_ROOT = Path(os.environ.get("CATLOG_OUT",
+                                Path.home() / "catlog-data" / "out"))
+MANIFEST_ROOT = Path(os.environ.get("CATLOG_MANIFESTS",
+                                    Path.home() / "catlog-data" / "manifests"))
+LOCAL_OUT = Path(os.environ.get("CATLOG_LOCAL_OUT", str(DEST_ROOT)))
 
 REQUIRED = ["TIT1", "TIT2", "TPE1", "TPE2", "TALB", "TCOM",
             "TCON", "TDRC", "TRCK", "TPOS", "GRP1"]
@@ -164,9 +164,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--slug", required=True)
     ap.add_argument("--local-root", default=str(LOCAL_OUT),
-                    help="where the render wrote (default PIPELINE_LOCAL_OUT)")
+                    help="where the render wrote (default CATLOG_LOCAL_OUT)")
     ap.add_argument("--dest-root", default=str(DEST_ROOT),
-                    help="library-shaped output tree (default PIPELINE_OUT)")
+                    help="library-shaped output tree (default CATLOG_OUT)")
     ap.add_argument("--copy", action="store_true",
                     help="copy into the output tree after verifying")
     args = ap.parse_args()

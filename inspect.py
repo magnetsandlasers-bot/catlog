@@ -8,9 +8,9 @@ CUE track with computed durations, every image with its aspect ratio, text
 encoding of cues and EAC logs, and embedded-cuesheet detection.
 
 Usage:
-    python3 ~/pipeline/inspect.py "ABprinceET.part1.rar"
-    python3 ~/pipeline/inspect.py "Schubert - Alban Berg Quartett"
-    python3 ~/pipeline/inspect.py --all
+    python3 ~/catlog-data/inspect.py "ABprinceET.part1.rar"
+    python3 ~/catlog-data/inspect.py "Schubert - Alban Berg Quartett"
+    python3 ~/catlog-data/inspect.py --all
 """
 
 import argparse
@@ -21,8 +21,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-INTAKE = Path(os.environ.get("PIPELINE_INTAKE",
-                            Path.home() / "pipeline" / "intake"))
+INTAKE = Path(os.environ.get("CATLOG_INTAKE",
+                            Path.home() / "catlog-data" / "intake"))
 
 AUDIO_EXT = {
     ".mp3", ".flac", ".m4a", ".aac", ".wav", ".aiff", ".aif",

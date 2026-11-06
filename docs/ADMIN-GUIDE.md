@@ -5,7 +5,7 @@ Everything about running, changing and debugging catlog.
 ## Host
 
 `recorder` -- 192.168.42.104, Ubuntu, headless. Everything lives under
-`/home/karl/pipeline`, exposed as two dedicated Samba shares, plus the
+`/home/karl/catlog-data`, exposed as two dedicated Samba shares, plus the
 existing `[karl]` home share as a fallback.
 
 The scripts are plain Python 3 with no service, no daemon and no state beyond
@@ -16,8 +16,8 @@ the filesystem. There is nothing to restart and nothing to keep running.
 Two dedicated shares, added 2026-11-06, so intake and output are reachable
 without walking the whole home directory.
 
-    [catlog-intake]   /home/karl/pipeline/intake   read-write
-    [catlog-out]      /home/karl/pipeline/out      read-write
+    [catlog-intake]   /home/karl/catlog-data/intake   read-write
+    [catlog-out]      /home/karl/catlog-data/out      read-write
 
 Both are defined in /etc/samba/smb.conf alongside the pre-existing
 [Recordings] and [karl] shares, and follow their conventions. The
@@ -42,7 +42,7 @@ From macOS:
     smb://recorder/catlog-intake
     smb://recorder/catlog-out
 
-The live pipeline at `~/pipeline` is the data; this repository is the code.
+The live data at `~/catlog-data` is separate from this repository, which is the code.
 They are deliberately separate, so that `git status` in the repo is never
 polluted by half-processed albums.
 
@@ -97,7 +97,7 @@ be read at all; see the limitations section.
 
 ## Directory layout
 
-    ~/pipeline/
+    ~/catlog-data/
       intake/       drop zone. not managed.
       work/         scratch, per album. safe to delete.
       manifests/    <slug>/manifest.json. the approval record.
@@ -109,7 +109,7 @@ be read at all; see the limitations section.
 
 Create them once:
 
-    mkdir -p ~/pipeline/{intake,work,manifests,out,reports,quarantine,logs,meta}
+    mkdir -p ~/catlog-data/{intake,work,manifests,out,reports,quarantine,logs,meta}
 
 `meta/` is where you keep the JSON that drives planning. It is an input, not an
 output, so it is the one directory worth keeping under version control if you
@@ -117,18 +117,18 @@ ever want to reproduce an album.
 
 ## Environment variables
 
-Every path has a default under `~/pipeline`, so in normal use none of these are
+Every path has a default under `~/catlog-data`, so in normal use none of these are
 needed. They exist so the pipeline can be pointed elsewhere, or run from a
 container against a mounted volume.
 
 | Variable | Used by | Default |
 |---|---|---|
-| `PIPELINE_INTAKE` | scan, inspect, plan, render | `~/pipeline/intake` |
-| `PIPELINE_MANIFESTS` | plan, render, deliver | `~/pipeline/manifests` |
-| `PIPELINE_OUT` | render, deliver | `~/pipeline/out` |
-| `PIPELINE_REPORTS` | scan, render | `~/pipeline/reports` |
-| `PIPELINE_WORK` | render | `~/pipeline/work` |
-| `PIPELINE_LOCAL_OUT` | deliver | same as `PIPELINE_OUT` |
+| `CATLOG_INTAKE` | scan, inspect, plan, render | `~/catlog-data/intake` |
+| `CATLOG_MANIFESTS` | plan, render, deliver | `~/catlog-data/manifests` |
+| `CATLOG_OUT` | render, deliver | `~/catlog-data/out` |
+| `CATLOG_REPORTS` | scan, render | `~/catlog-data/reports` |
+| `CATLOG_WORK` | render | `~/catlog-data/work` |
+| `CATLOG_LOCAL_OUT` | deliver | same as `CATLOG_OUT` |
 
 `deliver.py` also takes `--local-root` and `--dest-root` if the render output
 and the delivery tree are in different places. If they resolve to the same
@@ -222,7 +222,7 @@ noise.
 **Long renders must not run in the foreground of a session that can be cut
 off.** Either detach:
 
-    nohup python3 ~/pipeline/render.py --slug X > /tmp/render.log 2>&1 &
+    nohup python3 ~/catlog/render.py --slug X > /tmp/render.log 2>&1 &
 
 or, if driving from another machine over ssh, expect a command timeout and run
 it detached there too. A killed render leaves partial MP3s in the output
@@ -272,7 +272,7 @@ Dump every frame of a file:
 
 Confirm what a CUE really says versus what it looks like:
 
-    python3 ~/pipeline/inspect.py "Album Folder"
+    python3 ~/catlog/inspect.py "Album Folder"
 
 Check an encode independently:
 
@@ -280,7 +280,7 @@ Check an encode independently:
 
 Find files that did not get tagged:
 
-    find ~/pipeline/out -name '*.mp3' -size -1k
+    find ~/catlog-data/out -name '*.mp3' -size -1k
 
 ## Recovering
 

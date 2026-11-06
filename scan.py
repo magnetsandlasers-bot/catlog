@@ -2,12 +2,12 @@
 """
 Read-only inventory scan of the classical intake directory.
 
-Walks ~/pipeline/intake, classifies each top-level item, and writes a report.
+Walks ~/catlog-data/intake, classifies each top-level item, and writes a report.
 Changes nothing. No files are moved, renamed, or written outside reports/.
 
 Usage:
-    python3 ~/pipeline/scan.py
-    python3 ~/pipeline/scan.py --intake /path/to/dir
+    python3 ~/catlog-data/scan.py
+    python3 ~/catlog-data/scan.py --intake /path/to/dir
 """
 
 import argparse
@@ -19,8 +19,8 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-INTAKE_DEFAULT = Path(os.environ.get("PIPELINE_INTAKE", Path.home() / "pipeline" / "intake"))
-REPORT_ROOT = Path(os.environ.get("PIPELINE_REPORTS", Path.home() / "pipeline" / "reports"))
+INTAKE_DEFAULT = Path(os.environ.get("CATLOG_INTAKE", Path.home() / "catlog-data" / "intake"))
+REPORT_ROOT = Path(os.environ.get("CATLOG_REPORTS", Path.home() / "catlog-data" / "reports"))
 
 AUDIO_EXT = {
     ".mp3", ".flac", ".m4a", ".aac", ".wav", ".aiff", ".aif",

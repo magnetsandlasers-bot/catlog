@@ -8,7 +8,7 @@
 
 set -u
 
-PIPE="${PIPELINE_HOME:-$HOME/pipeline}"
+PIPE="${CATLOG_DATA:-$HOME/catlog-data}"
 FAIL=0
 
 say()  { printf '%s\n' "$*"; }
@@ -16,7 +16,7 @@ ok()   { printf '  ok    %s\n' "$*"; }
 bad()  { printf '  MISS  %s\n' "$*"; FAIL=$((FAIL + 1)); }
 
 say "catlog install"
-say "pipeline home: $PIPE"
+say "data directory: $PIPE"
 say ""
 
 # ---------------------------------------------------------------- binaries

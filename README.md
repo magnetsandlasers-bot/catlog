@@ -43,23 +43,23 @@ Between those two is where you work. Edit the manifest, re-plan, approve, render
 ## Quick start
 
     # what is in intake?
-    python3 ~/pipeline/scan.py
+    python3 ~/catlog/scan.py
 
     # everything about one album, in detail
-    python3 ~/pipeline/inspect.py "Some Album Folder"
+    python3 ~/catlog/inspect.py "Some Album Folder"
 
     # write a metadata file for it under meta/, then
-    python3 ~/pipeline/plan.py --meta ~/pipeline/meta/some-album.json
+    python3 ~/catlog/plan.py --meta ~/catlog-data/meta/some-album.json
 
     # read the plan, then flip "approved": true in the manifest
-    python3 ~/pipeline/render.py --slug some-album
+    python3 ~/catlog/render.py --slug some-album
 
     # verify every track and copy to the out share
-    python3 ~/pipeline/deliver.py --slug some-album --copy
+    python3 ~/catlog/deliver.py --slug some-album --copy
 
 Long renders outlive an ssh session. Run them detached and poll:
 
-    nohup python3 ~/pipeline/render.py --slug some-album > /tmp/render.log 2>&1 &
+    nohup python3 ~/catlog/render.py --slug some-album > /tmp/render.log 2>&1 &
 
 ## Documentation
 

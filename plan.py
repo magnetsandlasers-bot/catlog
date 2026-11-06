@@ -9,7 +9,7 @@ output track with its computed start/duration and the exact tags to be written.
 Nothing is encoded, split, or tagged at this stage.
 
 Usage:
-    python3 plan.py --meta ~/pipeline/meta/borodin-prince-igor.json
+    python3 plan.py --meta ~/catlog-data/meta/borodin-prince-igor.json
     python3 plan.py --meta ... --intake /path/to/intake --manifest-root /path
 """
 
@@ -23,9 +23,9 @@ from datetime import datetime
 from pathlib import Path
 
 DEFAULT_INTAKE = Path(os.environ.get(
-    "PIPELINE_INTAKE", Path.home() / "pipeline" / "intake"))
+    "CATLOG_INTAKE", Path.home() / "catlog-data" / "intake"))
 DEFAULT_MANIFEST_ROOT = Path(os.environ.get(
-    "PIPELINE_MANIFESTS", Path.home() / "pipeline" / "manifests"))
+    "CATLOG_MANIFESTS", Path.home() / "catlog-data" / "manifests"))
 
 AUDIO_EXT = {
     ".mp3", ".flac", ".m4a", ".aac", ".wav", ".aiff", ".aif",

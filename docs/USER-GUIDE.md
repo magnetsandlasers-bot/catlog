@@ -4,7 +4,7 @@ The day to day. What to do with a new pile of files.
 
 ## 1. Drop the files in
 
-    ~/pipeline/intake/
+    ~/catlog-data/intake/
 
 or over SMB, which is easier:
 
@@ -15,7 +15,7 @@ go in as one folder, not one per disc.
 
 ## 2. See what arrived
 
-    python3 ~/pipeline/scan.py
+    python3 ~/catlog/scan.py
 
 Reads everything, changes nothing. Tells you the shape of each item, the
 formats and bitrates, artwork sizes, CUE encodings, and flags anything that
@@ -26,7 +26,7 @@ Look at the flags. Anything that says `NO ARTWORK`, `cannot split`, `MP3 below
 
 ## 3. Look closer at the one you are doing
 
-    python3 ~/pipeline/inspect.py "Album Folder Name"
+    python3 ~/catlog/inspect.py "Album Folder Name"
 
 Every track from the CUE with computed durations, every image with its
 dimensions and a squareness score and a guess at what it is, the text encoding
@@ -62,7 +62,7 @@ from a real source.
 
 ## 5. Write the metadata file
 
-Under `~/pipeline/meta/`, one JSON file per album. It is the input to planning;
+Under `~/catlog-data/meta/`, one JSON file per album. It is the input to planning;
 the manifest is the output.
 
     {
@@ -109,7 +109,7 @@ Notes on the fields:
 
 ## 6. Plan
 
-    python3 ~/pipeline/plan.py --meta ~/pipeline/meta/some-album.json
+    python3 ~/catlog/plan.py --meta ~/catlog-data/meta/some-album.json
 
 Writes `manifests/<slug>/manifest.json` and prints a readable summary: every
 track with its start and duration, its TIT2, the artwork resize, and any
@@ -137,7 +137,7 @@ asks.
 
 ## 8. Render
 
-    nohup python3 ~/pipeline/render.py --slug some-album > /tmp/render.log 2>&1 &
+    nohup python3 ~/catlog/render.py --slug some-album > /tmp/render.log 2>&1 &
 
 Run it detached. A disc takes roughly 15 to 20 minutes, an opera three discs
 about 15, forty-four shorter tracks about 8. Total elapsed is dominated by
@@ -146,11 +146,11 @@ decoding, so it scales with audio duration, not track count.
 Watch progress:
 
     tail -f /tmp/render.log
-    ls ~/pipeline/out/<Artist>/<Album>/ | wc -l
+    ls ~/catlog-data/out/<Artist>/<Album>/ | wc -l
 
 ## 9. Verify and deliver
 
-    python3 ~/pipeline/deliver.py --slug some-album
+    python3 ~/catlog/deliver.py --slug some-album
 
 Checks every track: it exists, it is really MP3, it is really near 320k, the
 sample rate is right, the duration matches the plan to within 1.5s, every
@@ -160,10 +160,10 @@ tags and the total size.
 
 Then:
 
-    python3 ~/pipeline/deliver.py --slug some-album --copy
+    python3 ~/catlog/deliver.py --slug some-album --copy
 
 Repeats all of that and, only if everything passed, copies to
-`~/pipeline/out/<Artist>/<Album>/`. It will not copy while problems remain.
+`~/catlog-data/out/<Artist>/<Album>/`. It will not copy while problems remain.
 
 ## 10. Import
 

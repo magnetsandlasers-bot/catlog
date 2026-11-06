@@ -25,15 +25,15 @@ import time
 from pathlib import Path
 
 INTAKE = Path(os.environ.get(
-    "PIPELINE_INTAKE", Path.home() / "pipeline" / "intake"))
+    "CATLOG_INTAKE", Path.home() / "catlog-data" / "intake"))
 OUT_ROOT = Path(os.environ.get(
-    "PIPELINE_OUT", Path.home() / "pipeline" / "out"))
+    "CATLOG_OUT", Path.home() / "catlog-data" / "out"))
 MANIFEST_ROOT = Path(os.environ.get(
-    "PIPELINE_MANIFESTS", Path.home() / "pipeline" / "manifests"))
+    "CATLOG_MANIFESTS", Path.home() / "catlog-data" / "manifests"))
 REPORT_ROOT = Path(os.environ.get(
-    "PIPELINE_REPORTS", Path.home() / "pipeline" / "reports"))
+    "CATLOG_REPORTS", Path.home() / "catlog-data" / "reports"))
 WORK_ROOT = Path(os.environ.get(
-    "PIPELINE_WORK", Path.home() / "pipeline" / "work"))
+    "CATLOG_WORK", Path.home() / "catlog-data" / "work"))
 
 LAME_BITRATE = "320k"
 
