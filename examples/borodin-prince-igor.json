@@ -1,0 +1,32 @@
+{
+  "slug": "borodin-prince-igor-tchakarov",
+  "album": {
+    "talb": "Borodin: Prince Igor",
+    "tpe2": "Emil Tchakarov",
+    "tpe1": "The Sofia Festival Orchestra, cond. Emil Tchakarov",
+    "tcom": "Alexander Borodin (1833-1887)",
+    "tcon": "Opera",
+    "tdrc": "1990",
+    "grp1": "Classical",
+    "work": "Prince Igor",
+    "tit1": "Prince Igor—(rec. 1987)",
+    "artist_folder": "Emil Tchakarov",
+    "album_folder": "Borodin_ Prince Igor",
+    "artwork": "Borodin - Prince Igor - Tchakarov/box front.jpg",
+    "artwork_note": "box front chosen by Karl over the 668x600 per-disc covers"
+  },
+  "discs": [
+    {
+      "tpos": 1,
+      "cue": "Borodin - Prince Igor - Tchakarov/CD1/Borodin - Prince Igor (CD1) - Tchakarov.cue"
+    },
+    {
+      "tpos": 2,
+      "cue": "Borodin - Prince Igor - Tchakarov/CD2/Borodin - Prince Igor (CD2) - Tchakarov.cue"
+    },
+    {
+      "tpos": 3,
+      "cue": "Borodin - Prince Igor - Tchakarov/CD3/Borodin - Prince Igor (CD3) - Tchakarov.cue"
+    }
+  ]
+}

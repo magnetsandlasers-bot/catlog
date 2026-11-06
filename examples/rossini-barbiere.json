@@ -1,0 +1,28 @@
+{
+  "slug": "rossini-barbiere-callas-galliera",
+  "album": {
+    "talb": "Rossini: Il Barbiere di Siviglia",
+    "tpe2": "Alceo Galliera",
+    "tpe1": "The Philharmonia Orchestra and Chorus, cond. Alceo Galliera",
+    "tcom": "Gioachino Rossini (1792-1868)",
+    "tcon": "Opera",
+    "tdrc": "1958",
+    "grp1": "Classical",
+    "work": "Il Barbiere di Siviglia",
+    "tit1": "Il Barbiere di Siviglia—(rec. 1957)",
+    "artist_folder": "Alceo Galliera",
+    "album_folder": "Rossini_ Il Barbiere di Siviglia",
+    "artwork": "Il Barbiere di Siviglia - Callas, Gobbi/Front cover.jpg",
+    "artwork_note": "Front cover.jpg 1500x1500, downscaled to 1280"
+  },
+  "discs": [
+    {
+      "tpos": 1,
+      "cue": "Il Barbiere di Siviglia - Callas, Gobbi/Performance/Rossini_ Il barbiere di Siviglia.cue",
+      "tracks_override": {
+        "1": {"mvnm": "Sinfonia"},
+        "39": {"mvnm": "Act 2 - Temporale"}
+      }
+    }
+  ]
+}

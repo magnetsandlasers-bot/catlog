@@ -1,0 +1,34 @@
+{
+  "slug": "schubert-abq-tod-rosamunde",
+  "album": {
+    "talb": "Schubert: Der Tod und das Maedchen / Rosamunde",
+    "tpe2": "Alban Berg Quartett",
+    "tpe1": "Alban Berg Quartett",
+    "tcom": "Franz Schubert (1797-1828)",
+    "tcon": "Quartet, string",
+    "tdrc": "1985",
+    "grp1": "Classical",
+    "work": "Der Tod und das Maedchen",
+    "tit1": "String Quartet no.14 in D minor, D.810—(rec. 1984)",
+    "artist_folder": "Alban Berg Quartett",
+    "album_folder": "Schubert_ Der Tod und das Maedchen _ Rosamunde",
+    "artwork": "Schubert - Alban Berg Quartett/03.jpg",
+    "artwork_note": "03.jpg is the near-square booklet front at 1412x1451, 01.jpg is a 1412x2889 spread"
+  },
+  "discs": [
+    {
+      "tpos": 1,
+      "cue": "Schubert - Alban Berg Quartett/Alban Berg Quartett - Schubert, Der Tod und das Maedchen.cue",
+      "tracks_override": {
+        "1": {"mvnm": "Allegro", "roman": "I", "mvin": "1/4"},
+        "2": {"mvnm": "Andante con moto", "roman": "II", "mvin": "2/4"},
+        "3": {"mvnm": "Scherzo (Allegro molto) & Trio", "roman": "III", "mvin": "3/4"},
+        "4": {"mvnm": "Presto", "roman": "IV", "mvin": "4/4"},
+        "5": {"mvnm": "Allegro ma non troppo", "roman": "I", "mvin": "1/4", "tit1": "String Quartet no.13 in A minor, D.804, op.29—(rec. 1984)"},
+        "6": {"mvnm": "Andante", "roman": "II", "mvin": "2/4", "tit1": "String Quartet no.13 in A minor, D.804, op.29—(rec. 1984)"},
+        "7": {"mvnm": "Menuetto (Allegretto) & Trio", "roman": "III", "mvin": "3/4", "tit1": "String Quartet no.13 in A minor, D.804, op.29—(rec. 1984)"},
+        "8": {"mvnm": "Allegro moderato", "roman": "IV", "mvin": "4/4", "tit1": "String Quartet no.13 in A minor, D.804, op.29—(rec. 1984)"}
+      }
+    }
+  ]
+}

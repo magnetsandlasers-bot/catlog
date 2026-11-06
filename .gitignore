@@ -1,0 +1,17 @@
+# Ignore everything that is data, not code.
+intake/
+work/
+out/
+reports/
+manifests/
+quarantine/
+logs/
+meta/
+
+# Python
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+._*

@@ -1,0 +1,56 @@
+# smb.conf share stanzas for catlog
+#
+# Not a complete smb.conf. These are the stanzas to add, in the [global]
+# context of an existing Samba install. On recorder this lives in
+# /etc/samba/smb.conf alongside the pre-existing [Recordings] and [karl]
+# shares, which are shown at the bottom for comparison.
+#
+# After editing:  sudo systemctl restart smbd
+#
+# `force user = karl` is the line that matters. Files written from any client
+# land owned by karl, so the pipeline can read what was dropped and you can
+# read what it produced, regardless of the client's uid.
+
+[catlog-intake]
+   comment = catlog intake - drop albums here
+   path = /home/karl/pipeline/intake
+   browseable = yes
+   read only = no
+   guest ok = no
+   valid users = karl
+   create mask = 0664
+   directory mask = 0775
+   force user = karl
+
+[catlog-out]
+   comment = catlog output - finished albums, ready to import
+   path = /home/karl/pipeline/out
+   browseable = yes
+   read only = no
+   guest ok = no
+   valid users = karl
+   create mask = 0664
+   directory mask = 0775
+   force user = karl
+
+# ---------------------------------------------------------------------------
+# Pre-existing shares on recorder, for reference. Not part of catlog.
+
+[Recordings]
+   path = /home/karl/Recorder Storage
+   writable = yes
+   guest ok = no
+   read only = no
+   create mask = 0775
+   directory mask = 0775
+   force user = karl
+
+[karl]
+   comment = Karl home directory
+   path = /home/karl
+   browseable = yes
+   read only = no
+   guest ok = no
+   valid users = karl
+   create mask = 0664
+   directory mask = 0775
