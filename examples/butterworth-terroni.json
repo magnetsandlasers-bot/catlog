@@ -1,0 +1,81 @@
+{
+  "slug": "butterworth-terroni-piano-trios",
+  "album": {
+    "talb": "Butterworth: Piano Trio no.1 / Piano Trio no.2 / Viola Sonata",
+    "tpe2": "The Terroni Trio",
+    "tpe1": "The Terroni Piano Trio",
+    "tcom": "Arthur Butterworth (1923-2014)",
+    "tcon": "Trio, piano",
+    "tdrc": "2006",
+    "grp1": "Classical",
+    "work": "Piano Trio no.1",
+    "tit1": "Piano Trio no.1, op.73—(rec. 2005)",
+    "artist_folder": "The Terroni Trio",
+    "album_folder": "Butterworth_ Piano Trio no.1 _ Piano Trio no.2 _ Viola Sonata",
+    "artwork": "The Terroni Trio - Arthur Butterworth Piano Trios No 1, No 2 & Viola Sonata/cover.jpg",
+    "artwork_note": "cover.jpg 1416x1416, downscaled to 1280. Recorded 15-17 June 2005, All Saints Church, East Finchley. Dutton Epoch CDLX 7164.",
+    "tpe1_note": "TPE2 is the Trio for the whole album per Karl. TPE1 is accurate per work: the Viola Sonata is a Goff/Terroni duo, not the trio."
+  },
+  "discs": [
+    {
+      "tpos": 1,
+      "folder": "The Terroni Trio - Arthur Butterworth Piano Trios No 1, No 2 & Viola Sonata",
+      "tracks_override": {
+        "1": {
+          "mvnm": "Vigoroso",
+          "roman": "I",
+          "mvin": "1/3"
+        },
+        "2": {
+          "mvnm": "Adagio",
+          "roman": "II",
+          "mvin": "2/3"
+        },
+        "3": {
+          "mvnm": "Allegretto",
+          "roman": "III",
+          "mvin": "3/3"
+        },
+        "4": {
+          "mvnm": "Appassionato",
+          "roman": "I",
+          "mvin": "1/3",
+          "tit1": "Viola Sonata, op.78—(rec. 2005)",
+          "tpe1": "Morgan Goff & Raphael Terroni"
+        },
+        "5": {
+          "mvnm": "Scherzo",
+          "roman": "II",
+          "mvin": "2/3",
+          "tit1": "Viola Sonata, op.78—(rec. 2005)",
+          "tpe1": "Morgan Goff & Raphael Terroni"
+        },
+        "6": {
+          "mvnm": "Lento, penserosiamente",
+          "roman": "III",
+          "mvin": "3/3",
+          "tit1": "Viola Sonata, op.78—(rec. 2005)",
+          "tpe1": "Morgan Goff & Raphael Terroni"
+        },
+        "7": {
+          "mvnm": "Allegro appassionato",
+          "roman": "I",
+          "mvin": "1/3",
+          "tit1": "Piano Trio no.2, op.121—(rec. 2005)"
+        },
+        "8": {
+          "mvnm": "Adagio",
+          "roman": "II",
+          "mvin": "2/3",
+          "tit1": "Piano Trio no.2, op.121—(rec. 2005)"
+        },
+        "9": {
+          "mvnm": "Allegro molto",
+          "roman": "III",
+          "mvin": "3/3",
+          "tit1": "Piano Trio no.2, op.121—(rec. 2005)"
+        }
+      }
+    }
+  ]
+}

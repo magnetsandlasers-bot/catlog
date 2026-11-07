@@ -104,8 +104,31 @@ Notes on the fields:
   you must set `tit1` on **every** track of the second work, not just the
   first, because the album-level value is the fallback.
 - Omit `mvin` entirely for opera, and omit `roman` too.
-- For a disc released as pre-split files rather than one image, the CUE has one
-  `FILE` per track, and catlog handles that automatically.
+- For a disc released as pre-split files rather than one image, you have two
+  options. If the release ships a CUE with one `FILE` per track, catlog handles
+  that automatically. If there is no CUE at all -- only an `.m3u`, which is
+  common for downloads -- point the disc at a folder instead of a cue:
+
+      "discs": [
+        {
+          "tpos": 1,
+          "folder": "Artist - Album Folder Name",
+          "tracks_override": { ... }
+        }
+      ]
+
+  Folder mode enumerates the audio files in that directory sorted by name, so
+  the filenames must sort into the right order (`01 - ...`, `02 - ...`). Track
+  numbers are assigned from that order. Use `folder` OR `cue`, never both.
+
+- `tpe1` can be overridden per track, alongside `mvnm`, `tit1`, `roman` and
+  `mvin`. Needed when one album carries a different ensemble for part of it --
+  a viola sonata on a piano trio disc, for instance: TPE2 stays the album's
+  lead artist, but TPE1 is accurate for the tracks that differ.
+
+- Single-movement works have no movement name. Set `"mvnm": ""` and the title
+  becomes the work title alone rather than repeating itself. The filename falls
+  back to the work title, without the recording year.
 
 ## 6. Plan
 

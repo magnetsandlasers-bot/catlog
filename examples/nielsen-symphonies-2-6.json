@@ -1,0 +1,70 @@
+{
+  "slug": "nielsen-symphonies-2-6-oramo",
+  "album": {
+    "talb": "Nielsen: Symphony no.2 / Symphony no.6",
+    "tpe2": "Sakari Oramo",
+    "tpe1": "The Royal Stockholm Philharmonic Orchestra, cond. Sakari Oramo",
+    "tcom": "Carl Nielsen (1865-1931)",
+    "tcon": "Symphony",
+    "tdrc": "2015",
+    "grp1": "Classical",
+    "work": "Symphony no.2",
+    "tit1": "Symphony no.2, op.16 'The Four Temperaments'—(rec. 2014)",
+    "artist_folder": "Sakari Oramo",
+    "album_folder": "Nielsen_ Symphony no.2 _ Symphony no.6",
+    "artwork": "Sakari Oramo - Nielsen Symphonies No 2 & No 6/cover.jpg",
+    "artwork_note": "cover.jpg 1416x1416, downscaled to 1280. Recorded June 2014, Stockholm Concert Hall. BIS-2128."
+  },
+  "discs": [
+    {
+      "tpos": 1,
+      "folder": "Sakari Oramo - Nielsen Symphonies No 2 & No 6",
+      "tracks_override": {
+        "1": {
+          "mvnm": "Allegro collerico",
+          "roman": "I",
+          "mvin": "1/4"
+        },
+        "2": {
+          "mvnm": "Allegro comodo e flemmatico",
+          "roman": "II",
+          "mvin": "2/4"
+        },
+        "3": {
+          "mvnm": "Andante malincolico",
+          "roman": "III",
+          "mvin": "3/4"
+        },
+        "4": {
+          "mvnm": "Allegro sanguineo",
+          "roman": "IV",
+          "mvin": "4/4"
+        },
+        "5": {
+          "mvnm": "Tempo giusto",
+          "roman": "I",
+          "mvin": "1/4",
+          "tit1": "Symphony no.6, FS 116 'Sinfonia semplice'—(rec. 2014)"
+        },
+        "6": {
+          "mvnm": "Humoresque. Allegretto",
+          "roman": "II",
+          "mvin": "2/4",
+          "tit1": "Symphony no.6, FS 116 'Sinfonia semplice'—(rec. 2014)"
+        },
+        "7": {
+          "mvnm": "Proposta seria. Adagio",
+          "roman": "III",
+          "mvin": "3/4",
+          "tit1": "Symphony no.6, FS 116 'Sinfonia semplice'—(rec. 2014)"
+        },
+        "8": {
+          "mvnm": "Theme & Variations. Allegro",
+          "roman": "IV",
+          "mvin": "4/4",
+          "tit1": "Symphony no.6, FS 116 'Sinfonia semplice'—(rec. 2014)"
+        }
+      }
+    }
+  ]
+}

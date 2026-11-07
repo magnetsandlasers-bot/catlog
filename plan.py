@@ -190,6 +190,19 @@ def safe_filename(name):
 
 # ------------------------------------------------------------------ plan
 
+def scan_folder_tracks(folder):
+    """Enumerate audio files in a folder as a synthetic cue-less track list."""
+    names = sorted(p.name for p in folder.iterdir()
+                   if p.is_file() and p.suffix.lower() in AUDIO_EXT
+                   and not p.name.startswith("._"))
+    tracks = []
+    for i, name in enumerate(names, start=1):
+        tracks.append({"number": i, "title": None, "file": name,
+                       "index01": None})
+    return {"files": names, "tracks": tracks, "title": None,
+            "performer": None, "rem": [], "encoding": "n/a"}
+
+
 def build(meta, intake, manifest_root):
     album = meta["album"]
     artist_dir = album["artist_folder"]
@@ -222,14 +235,30 @@ def build(meta, intake, manifest_root):
     discs = []
     for d in meta["discs"]:
         disc_no = int(d["tpos"])
-        cue_path = intake / d["cue"]
-        if not cue_path.is_file():
-            errors.append(f"cue not found: {d['cue']}")
+        if d.get("cue"):
+            cue_path = intake / d["cue"]
+            if not cue_path.is_file():
+                errors.append(f"cue not found: {d['cue']}")
+                continue
+            cue = read_cue(cue_path)
+            if not cue["files"]:
+                errors.append(f"cue has no FILE line: {d['cue']}")
+                continue
+        elif d.get("folder"):
+            cue_path = None
+            src_dir = intake / d["folder"]
+            if not src_dir.is_dir():
+                errors.append(f"folder not found: {d['folder']}")
+                continue
+            cue = scan_folder_tracks(src_dir)
+            if not cue["files"]:
+                errors.append(f"no audio files in {d['folder']}")
+                continue
+        else:
+            errors.append(f"disc {disc_no}: needs either cue or folder")
             continue
-        cue = read_cue(cue_path)
-        if not cue["files"]:
-            errors.append(f"cue has no FILE line: {d['cue']}")
-            continue
+        base_dir = (cue_path.parent if cue_path
+                    else (intake / d["folder"]))
         if len(cue["files"]) != 1:
             tracks = []
             total = 0.0
@@ -238,7 +267,7 @@ def build(meta, intake, manifest_root):
                 if not tfile:
                     errors.append(f"disc {disc_no} track {t["number"]}: no FILE")
                     continue
-                tsrc = cue_path.parent / tfile
+                tsrc = base_dir / tfile
                 if not tsrc.is_file():
                     errors.append(f"disc {disc_no}: missing {tfile}")
                     continue
@@ -252,11 +281,17 @@ def build(meta, intake, manifest_root):
                 if ov.get("mvnm"):
                     mvnm = normalize_act(ov["mvnm"])
                 tit1 = ov.get("tit1") or d.get("tit1") or album["tit1"]
+                tpe1 = ov.get("tpe1") or album["tpe1"]
                 roman = ov.get("roman") or ""
                 lead = (roman + ". ") if roman else ""
-                tit2 = (tit1 + " " + lead + mvnm).strip()
+                if mvnm:
+                    tit2 = (tit1 + " " + lead + mvnm).strip()
+                else:
+                    # single-movement work: the work title IS the title
+                    tit2 = tit1
                 mvin = ov.get("mvin") or ""
-                fname = f"{disc_no}-{t["number"]:02d} {safe_filename(mvnm)}.mp3"
+                stem = mvnm or tit1.split(chr(8212))[0].strip()
+                fname = f"{disc_no}-{t["number"]:02d} {safe_filename(stem)}.mp3"
                 tracks.append({
                     "number": t["number"],
                     "filename": fname,
@@ -264,15 +299,16 @@ def build(meta, intake, manifest_root):
                     "mvin": mvin,
                     "tit1": tit1,
                     "tit2": tit2,
+                    "tpe1": tpe1,
                     "work": d.get("work") or album.get("work"),
                     "start_s": 0.0,
                     "duration_s": round(tlen, 3),
-                    "source": str(Path(cue_path.parent.relative_to(intake)) / tfile),
+                    "source": str(Path(base_dir.relative_to(intake)) / tfile),
                 })
             discs.append({
                 "tpos": disc_no,
                 "tpos_total": len(meta["discs"]),
-                "cue": str(cue_path.relative_to(intake)),
+                "cue": str(cue_path.relative_to(intake)) if cue_path else None,
                 "source": "(per-track files)",
                 "source_duration_s": round(total, 3),
                 "track_count": len(tracks),
@@ -280,10 +316,10 @@ def build(meta, intake, manifest_root):
             })
             continue
 
-        src = cue_path.parent / cue["files"][0]
+        src = base_dir / cue["files"][0]
         if not src.is_file():
             # cue may reference the file by a different name
-            alts = [p for p in cue_path.parent.iterdir()
+            alts = [p for p in base_dir.iterdir()
                     if p.suffix.lower() in AUDIO_EXT]
             if len(alts) == 1:
                 warnings.append(
@@ -351,7 +387,7 @@ def build(meta, intake, manifest_root):
         discs.append({
             "tpos": disc_no,
             "tpos_total": len(meta["discs"]),
-            "cue": str(cue_path.relative_to(intake)),
+            "cue": str(cue_path.relative_to(intake)) if cue_path else None,
             "source": str(src.relative_to(intake)),
             "source_duration_s": round(dur, 3),
             "track_count": len(tracks),

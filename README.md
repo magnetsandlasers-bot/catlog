@@ -57,6 +57,11 @@ Between those two is where you work. Edit the manifest, re-plan, approve, render
     # verify every track and copy to the out share
     python3 ~/catlog/deliver.py --slug some-album --copy
 
+Not part of the album workflow, but useful when the vocabulary drifts:
+
+    # what genre values is the library actually using?
+    python3 ~/catlog/census.py /mnt/woke_classical
+
 Long renders outlive an ssh session. Run them detached and poll:
 
     nohup python3 ~/catlog/render.py --slug some-album > /tmp/render.log 2>&1 &
@@ -70,6 +75,8 @@ Long renders outlive an ssh session. Run them detached and poll:
   artwork, approving, importing.
 - `docs/ADMIN-GUIDE.md` -- dependencies, environment variables, how each stage
   works internally, and the failure modes worth knowing in advance.
+- `census.py` -- counts the `TCON` values in a finished library, so the genre
+  vocabulary can be seen rather than assumed.
 
 ## Scope
 

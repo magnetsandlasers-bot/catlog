@@ -61,6 +61,37 @@ slashes:
 
     Schubert_ Der Tod und das Maedchen _ Rosamunde
 
+### Work numbering is lowercase
+
+`no.` with a lower-case n and a full stop. Not `No.`, not `no`, not `nr.`:
+
+    Symphony no.2 in E flat major, op.63
+    Piano Trio no.1, op.73
+    String Quartet no.14 in D minor, D.810
+    Piano Concerto no.3 in D minor, op.30
+
+This applies everywhere a work number appears -- TALB, TIT1, TIT2, and the
+album folder name on disk. The library was already using it before it was
+written down: `Rachmaninov_ Symphony no.3 in A minor`,
+`Sibelius_ Symphony no.2 in D`, `Symphony no.1` throughout the Karajan tags.
+
+Catalogue numbers keep their own conventions and are not affected: `op.63`,
+`D. 810`, `FS 116`, `K.527`, `S. 110`.
+
+### Several works where one dominates
+
+When a disc is built around one substantial work and carries shorter pieces
+alongside it, name the main work and roll the rest up as `Orchestral Works`:
+
+    Larsson: Symphony no.3 / Orchestral Works
+
+rather than listing all four:
+    Larsson: Symphony no.3 / Three Orchestral Pieces / Adagio / Musica permutatio
+
+The full contents still appear work by work in TIT1. The album title is a
+label, not a table of contents. Use the full listing when the works are of
+comparable weight and you would browse to any of them by name.
+
 ## TIT1 -- the work
 
     Work Title—(rec. YYYY)
@@ -131,19 +162,66 @@ Name followed by life dates in parentheses.
 
 ## TCON -- genre
 
-A controlled vocabulary. Currently in use:
+Noun first, qualifier second, comma separated: `Quartet, string`,
+`Concerto, piano`, `Suite, ballet`. Where the qualifier is obvious or the form
+has no standard one, a single word stands alone: `Symphony`, `Opera`,
+`Orchestral`. Capitalise the first word only.
 
-    Symphony
-    Concerto
-    Quartet, string
-    Opera
-    Song
-    lieder
+### The census, 2026-11-06
 
-Note `Quartet, string` -- noun then qualifier, comma separated. The library
-was already using it before it was a written rule, so it is the rule.
+13,090 files scanned, 83 distinct values, 14 files with no genre at all. The
+vocabulary in actual use, by frequency:
 
-Karl wants this list tightened to closed or semi-closed. Until then, extend
+    3323  Symphony              179  Quartet, string      55  Song
+    2298  Song, lieder          135  Sonata, piano        54  Orchestral
+    1623  Classical             133  Chamber Music        50  Overture
+    1407  Suite, orchestral     120  Cantata              42  Soundtrack
+    1175  Opera                 118  Tone Poem            39  Suite, orchestal
+     329  Oratorio              111  Concerto, violin     38  Sonata, violin
+     274  Suite, ballet        109  Ballet               31  Minimalism
+     208  Concerto              104  Incidental Music     28  Concerto, horn
+     193  Concerto, piano        80  Choral               27  Requiem
+                                  79  Song, orchestral     26  Medieval
+                                  78  Suite, piano         20  Concerto, cello
+                                  69  Song, cycle          19  Concerto, viola
+                                  64  Piano                19  Brass Ensemble
+
+...and a long tail of 40 values seen ten times or fewer.
+
+### Known duplicates
+
+The tail contains the same value spelled several ways. These are errors, not
+convention, and consolidating them changes no meaning:
+
+    Suite, orchestral (1407)  <-  Suite, orchestal (39)
+                                  Suite. orchestral (21)
+                                  Suite, ochestral (20)
+                                  Orchestral Suite (9)
+                                  Orchestral suite (9)
+
+    Symphonic Poem (13)       <-  Symphonic poem (1)
+    Song, lieder (2298)       <-  Song, Lieder (3)
+    Concerto, orchestral (19) <-  Concerto, ochestral (1)
+
+Those five Suite variants account for 98 files that should join the 1,407.
+Note the mixture of comma, full stop and missing comma as the separator --
+match on the whole string, not on a pattern.
+
+Not yet cleaned up. A standalone census script is worth having in the repo;
+re-running over 13k files across CIFS takes about 7 minutes.
+
+### Open questions
+
+Three values need a decision rather than a sweep:
+
+- **`Classical` (1,623)** -- a catch-all that conveys nothing. Deliberate
+  "unknown" bucket, or should these be reclassified?
+- **`Concerto` (208) vs `Concerto, piano` (193)** -- do the unqualified ones
+  get instrument qualifiers, or stay generic?
+- **`Chamber Music` (133)** -- overlaps `Quartet, string`, `Trio, piano`,
+  `Quintet, piano`, `Sonata, violin`.
+
+Karl's stated intent is a closed or semi-closed list. Until that lands, extend
 cautiously and prefer an existing value over a new one.
 
 ## TDRC and the recording year

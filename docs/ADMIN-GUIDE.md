@@ -166,14 +166,34 @@ nothing.
 
 Behaviours worth knowing:
 
-- A CUE with more than one `FILE` line is treated as pre-split tracks: each
-  track's `source` points at its own file and `start_s` is zero.
-- A CUE with one `FILE` line is treated as a disc image to be cut at index
-  points.
+Three source shapes are recognised, chosen by what the disc entry says:
+
+- `"cue": "path/to/file.cue"` with one `FILE` line -- a disc image, cut at the
+  CUE index points.
+- `"cue": "path/to/file.cue"` with many `FILE` lines -- pre-split tracks, one
+  per file. Each track's `source` points at its own file and `start_s` is zero.
+- `"folder": "path/to/dir"` -- no CUE at all. Used when a release ships as
+  loose tracks with only an `.m3u`, which is common for downloads. Audio files
+  are enumerated sorted by name, so the filenames must sort into playing order
+  (`01 - ...`, `02 - ...`); track numbers are assigned from that order.
+
+Never set both `cue` and `folder` on the same disc.
+
+Other behaviours:
+
 - Per-track overrides win over per-disc, which win over album-level defaults.
+  Overridable keys are `tit1`, `mvnm`, `roman`, `mvin` and `tpe1`.
+- `tit1` must be set on **every** track of a second work, not just its first,
+  because the album-level value is the fallback for anything unset.
+- A track with an empty `mvnm` is a single-movement work: TIT2 collapses to
+  TIT1 rather than repeating it, and the filename is derived from the work
+  title.
 - If a manifest already exists and is marked approved, planning refuses to
   overwrite it silently.
 - Act prefix normalisation converts `Act 1: ` to `Act 1 - `, idempotently.
+
+Note the metadata uses lowercase `no.` for work numbers -- `Symphony no.3`,
+`Piano Trio no.1` -- matching the library. `No.` is wrong.
 
 ### render.py
 

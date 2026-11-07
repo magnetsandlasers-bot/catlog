@@ -230,7 +230,7 @@ def main():
                 continue
             meta = {
                 "tit1": t["tit1"], "tit2": t["tit2"],
-                "tpe1": a["tpe1"], "tpe2": a["tpe2"], "talb": a["talb"],
+                "tpe1": t.get("tpe1") or a["tpe1"], "tpe2": a["tpe2"], "talb": a["talb"],
                 "tcom": a["tcom"], "tcon": a["tcon"], "tdrc": a["tdrc"],
                 "trck": t["number"],
                 "tpos": f"{d['tpos']}/{disc_total}",
