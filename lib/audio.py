@@ -86,7 +86,7 @@ def encode(src, dst, start=0.0, length=None, bitrate="320k"):
     if length is not None:
         cmd += ["-t", f"{length:.3f}"]
     cmd += ["-map_metadata", "-1", "-vn",
-            "-c:a", "libmp3lame", "-b:a", bitrate,
+            "-c:a", "libmp3lame", "-b:a", bitrate, "-ar", "44100",
             "-compression_level", "0",
             "-id3v2_version", "4", "-write_id3v1", "0",
             str(dst)]

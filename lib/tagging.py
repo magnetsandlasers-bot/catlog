@@ -8,7 +8,7 @@ the work, GRP1 is the literal string Classical.
 from pathlib import Path
 
 REQUIRED = ["TIT1", "TIT2", "TPE1", "TPE2", "TALB", "TCOM",
-            "TCON", "TDRC", "TRCK", "TPOS", "GRP1"]
+            "TCON", "TDRC", "TRCK", "GRP1"]
 
 # ffmpeg and various rippers leave noise in these.
 CLEAR = ("COMM", "TSSE", "TENC")
@@ -32,11 +32,12 @@ def write(path, album, track, cover=None):
         tags.add(TPE1(encoding=3, text=track.get("tpe1") or album["tpe1"]))
         tags.add(TPE2(encoding=3, text=album["tpe2"]))
         tags.add(TALB(encoding=3, text=album["talb"]))
-        tags.add(TCOM(encoding=3, text=album["tcom"]))
+        tags.add(TCOM(encoding=3, text=track.get("tcom") or album["tcom"]))
         tags.add(TCON(encoding=3, text=album["tcon"]))
         tags.add(TDRC(encoding=3, text=album["tdrc"]))
         tags.add(TRCK(encoding=3, text=str(track["number"])))
-        tags.add(TPOS(encoding=3, text=track["tpos"]))
+        if track.get("tpos"):
+            tags.add(TPOS(encoding=3, text=track["tpos"]))
         tags.add(GRP1(encoding=3, text=album.get("grp1", "Classical")))
         if track.get("mvnm"):
             tags.add(MVNM(encoding=3, text=track["mvnm"]))
@@ -58,7 +59,7 @@ def read(path):
     out = {}
     try:
         t = ID3(str(path))
-        for k in REQUIRED + ["MVNM", "MVIN"]:
+        for k in REQUIRED + ["MVNM", "MVIN", "TPOS"]:
             f = t.get(k)
             if f is not None:
                 try:

@@ -3,9 +3,18 @@
 This is the specification catlog writes to. It describes the classical
 library only. The Pazz & Jop library is tagged differently and deliberately.
 
-Everything below is ID3v2.4 on MP3 320 CBR. Frame names are the raw ID3 names
-because that is what the scripts read and write; where a tag editor shows
-something different it is noted.
+Everything below is ID3v2.4 on MP3 320 CBR, 44100 Hz, stereo. Frame
+names are the raw ID3 names because that is what the scripts read and write,
+where a tag editor shows something different it is noted.
+
+### The audio is always 44.1 kHz
+
+Everything catlog writes is MP3 320 CBR at 44100 Hz, stereo. This has
+to be FORCED in ffmpeg with -ar 44100 and is not a default worth
+trusting: the default follows the source, and a DSD-derived source at
+352.8 kHz silently produced 48000 Hz files which then failed verify
+on every track. A high resolution source does not change the delivery
+format. The library is one rate.
 
 ## Frame by frame
 
@@ -20,7 +29,7 @@ something different it is noted.
 | TCON | Genre | Controlled vocabulary, see below |
 | TDRC | Year | Release year |
 | TRCK | Track | Position within the disc, bare number |
-| TPOS | Disc | `n/total` |
+| TPOS | Disc | `n/total`, omitted for a single disc |
 | GRP1 | Grouping\* | Always `Classical` |
 | MVNM | Movement | Movement name, or act plus name for opera |
 | MVIN | Movement number | `n/total`, omitted for opera |
@@ -159,6 +168,17 @@ Name followed by life dates in parentheses.
     Gustav Mahler (1860-1911)
     Franz Schubert (1797-1828)
     Gioachino Rossini (1792-1868)
+
+**One composer only, never a list.** An album may hold works by several
+composers, but TCOM is per track: each track carries the composer of the work
+it belongs to. Never join composers with a slash or a comma, and never copy
+the album's composers into every track.
+
+    track 1-6  TCOM  Karol Szymanowski (1882-1937)
+    track 7    TCOM  Anton Webern (1883-1945)
+
+In the metadata JSON, album-level tcom is the default and
+tracks_override.tcom overrides it for tracks belonging to another composer.
 
 ## TCON -- genre
 
@@ -304,12 +324,16 @@ Also cleared.
 
 ## Filenames
 
-    <disc>-<track> <movement name>.mp3
+    <disc>-<track> <movement name>.mp3   (multi-disc)
+    <track> <movement name>.mp3          (single disc)
 
     1-01 Overture.mp3
     2-08 Act 2 - Aria of Prince Igor.mp3
+    04 Overture.mp3                      (a one-disc album)
 
-Disc prefix always present, zero-padded track number. Tags keep their real
+Zero-padded track number. The disc prefix appears ONLY on multi-disc sets.
+A single-disc album carries no disc prefix at all, and its TPOS frame is
+omitted entirely rather than being written as one slash one. Tags keep their real
 punctuation; filenames are sanitised, because `?` and curly quotes are legal
 in a tag and hostile in a filename.
 

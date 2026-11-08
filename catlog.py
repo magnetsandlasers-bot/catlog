@@ -369,6 +369,8 @@ def verify_album(m, folder):
                 problems.append(f"{t['filename']}: TIT1 differs from plan")
             if tags.get("TIT2") != t["tit2"]:
                 problems.append(f"{t['filename']}: TIT2 differs from plan")
+            if t.get("tpos") and tags.get("TPOS") != t["tpos"]:
+                problems.append(t["filename"] + ": TPOS differs from plan")
             if tags.get("_pictures") != 1:
                 problems.append(
                     f"{t['filename']}: {tags.get('_pictures', 0)} pictures")

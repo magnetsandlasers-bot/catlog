@@ -68,9 +68,18 @@ def title_tag(tit1, mvnm, roman=None):
     return f"{tit1} {lead}{mvnm}".strip()
 
 
-def track_filename(disc, track, stem):
-    """1-04 Act 1 - _Ehi, Fiorelli_...Mio signore_.mp3"""
+def track_filename(disc, track, stem, tpos_total=1):
+    """Multi-disc keeps its disc prefix. A single disc gets none."""
+    if tpos_total in (None, 1):
+        return f"{track:02d} {safe_filename(stem)}.mp3"
     return f"{disc}-{track:02d} {safe_filename(stem)}.mp3"
+
+
+def tpos_tag(disc, tpos_total):
+    """TPOS is omitted entirely for a single-disc album."""
+    if tpos_total in (None, 1):
+        return ""
+    return f"{disc}/{tpos_total}"
 
 
 def filename_stem(mvnm, tit1):
